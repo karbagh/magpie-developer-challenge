@@ -2,17 +2,23 @@
 
 namespace App;
 
+use App\Facades\Collecting\ProductCollectingFacade;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
+
 require 'vendor/autoload.php';
 
 class Scrape
 {
-    private array $products = [];
+    private ProductCollectingFacade $facade;
+
+    public function __construct()
+    {
+        $this->facade = new ProductCollectingFacade();
+    }
 
     public function run(): void
     {
-        $document = ScrapeHelper::fetchDocument('https://www.magpiehq.com/developer-challenge/smartphones');
-
-        file_put_contents('output.json', json_encode($this->products));
+        $this->facade->collect();
     }
 }
 
