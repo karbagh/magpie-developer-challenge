@@ -5,7 +5,6 @@ namespace App\Facades\Collecting;
 use App\Helpers\Scrape\ScrapeHelper;
 use App\Services\Collecting\ProductFetchingService;
 use App\Services\Scraping\ScrapeService;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class ProductCollectingFacade
 {
