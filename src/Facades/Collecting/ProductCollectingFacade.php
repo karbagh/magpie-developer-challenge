@@ -26,7 +26,7 @@ class ProductCollectingFacade
 
         $page = 1;
         $products = [];
-        while ($page < $pagesCount) {
+        while ($page <= $pagesCount) {
             $smartphonePage = ScrapeHelper::fetchDocument(self::DOCUMENT_URI . "?page=$page");
             $products []= array_merge(...$this->scrapeService->parseProducts($smartphonePage));
             $page++;
