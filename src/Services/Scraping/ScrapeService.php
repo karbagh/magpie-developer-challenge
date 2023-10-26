@@ -18,7 +18,7 @@ class ScrapeService
     {
         return $crawler->filter(ProductScrapeConfig::BASE_BLOCK)->each(function (Crawler $item) {
             $uri = rtrim(dirname($item->getUri()), '/');
-            return $item->filter(ProductScrapeConfig::ITEM_BLOCK)
+            return $item->filter(ProductScrapeConfig::COLOR_BLOCK)
                 ->each(function (Crawler $color) use ($item, $uri) {
                     $scrapeProduct = new ScrapeProduct();
                     $scrapeProduct->setTitle($item->filter(ProductScrapeConfig::NAME_BLOCK)->text());
@@ -28,7 +28,7 @@ class ScrapeService
                             ->attr('src'))
                     );
                     $scrapeProduct->setPrice($item->filter(ProductScrapeConfig::PRICE_BLOCK)->text());
-                    $scrapeProduct->setColour($color->attr(ProductScrapeConfig::COLOR_BLOCK));
+                    $scrapeProduct->setColour($color->attr(ProductScrapeConfig::COLOR_BLOCK_ATTR));
                     $scrapeProduct->setAvailabilityText($item->filter(ProductScrapeConfig::AVAILABILITY_BLOCK)->eq(0)->text());
                     $scrapeProduct->setShippingText($item->filter(ProductScrapeConfig::SHIPPING_TEXT_BLOCK)->eq(1)->text("No Data"));
                     return $scrapeProduct;
